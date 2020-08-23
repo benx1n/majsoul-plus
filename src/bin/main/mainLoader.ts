@@ -6,7 +6,7 @@ import { MajsoulPlus } from '../../majsoul_plus'
 const userConfigs: MajsoulPlus.UserConfig = require(Global.UserConfigPath)
 
 const remoteDomains = [
-  { id: 0, name: 'zh', domain: 'https://www.majsoul.com/1/' },
+  { id: 0, name: 'zh', domain: 'https://game.maj-soul.com/1' },
   { id: 1, name: 'jp', domain: 'https://game.mahjongsoul.com/' },
   { id: 2, name: 'en', domain: 'https://mahjongsoul.game.yo-star.com/' }
 ]
@@ -68,6 +68,12 @@ ipcRenderer.on('screenshot-saved', (event, filePath: string) => {
 ipcRenderer.on('open-devtools', () => {
   if (webContents) {
     mainWindow.openDevTools()
+  }
+})
+
+ipcRenderer.on('set-audio-muted', (event, bool: boolean) => {
+  if (webContents) {
+    mainWindow.setAudioMuted(bool)
   }
 })
 
@@ -134,7 +140,7 @@ mainWindow.addEventListener('dom-ready', () => {
     scaleWindow(100)
   }
 
-  mainWindow.setUserAgent(navigator.userAgent)
+  mainWindow.useragent = navigator.userAgent
 })
 
 ipcRenderer.on(
